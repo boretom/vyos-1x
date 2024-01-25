@@ -73,7 +73,7 @@
                     <properties>
                       <help>Show DHCP server leases with a specific state (can be multiple, comma-separated)</help>
                       <completionHelp>
-                        <list>abandoned active all backup expired free released reset</list>
+                        <list>abandoned active all backup expired free released reset static</list>
                       </completionHelp>
                     </properties>
                     <command>${vyos_op_scripts_dir}/dhcp.py show_server_leases --family inet --state $6</command>

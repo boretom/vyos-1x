@@ -37,12 +37,12 @@ from vyos.utils.process import is_systemd_service_running
 time_string = "%a %b %d %H:%M:%S %Z %Y"
 
 config = ConfigTreeQuery()
-lease_valid_states = ['all', 'active', 'free', 'expired', 'released', 'abandoned', 'reset', 'backup']
+lease_valid_states = ['all', 'active', 'free', 'expired', 'released', 'abandoned', 'reset', 'backup', 'static']
 sort_valid_inet = ['end', 'mac', 'hostname', 'ip', 'pool', 'remaining', 'start', 'state']
 sort_valid_inet6 = ['end', 'iaid_duid', 'ip', 'last_communication', 'pool', 'remaining', 'state', 'type']
 
 ArgFamily = typing.Literal['inet', 'inet6']
-ArgState = typing.Literal['all', 'active', 'free', 'expired', 'released', 'abandoned', 'reset', 'backup']
+ArgState = typing.Literal['all', 'active', 'free', 'expired', 'released', 'abandoned', 'reset', 'backup', 'static']
 ArgOrigin = typing.Literal['local', 'remote']
 
 def _utc_to_local(utc_dt):
@@ -78,6 +78,8 @@ def _get_raw_server_leases(family='inet', pool=None, sorted=None, state=[], orig
     :return list
     """
     lease_file = '/config/dhcpdv6.leases' if family == 'inet6' else '/config/dhcpd.leases'
+    #'IPv4 only for now
+    config_file = '/var/run/dhcp.conf'
     data = []
     leases = IscDhcpLeases(lease_file).get()
 
